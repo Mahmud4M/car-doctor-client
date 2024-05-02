@@ -2,7 +2,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Service = ({ service }) => {
-    const { title, img, price } = service;
+    const { _id, title, img, price } = service;
     return (
         <>
             <div className="card w-96 bg-base-100 border gap-6 mb-6">
@@ -16,7 +16,7 @@ const Service = ({ service }) => {
                             <p className="text-lg text-orange-500">Price: ${price}</p>
                         </div>
                         <div className="card-actions text-orange-500">
-                            <Link><FaArrowRightLong /></Link>
+                            <Link to={`/checkout/${_id}`}><FaArrowRightLong /></Link>
                         </div>
                     </div>
 
