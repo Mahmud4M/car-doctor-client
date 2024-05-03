@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const CheckOut = () => {
     const services = useLoaderData();
-    const { _id, title, price } = services;
+    const { _id, title, price, img } = services;
     const { user } = useContext(AuthContex);
 
     const handleSubmit = (event) => {
@@ -23,6 +23,7 @@ const CheckOut = () => {
             email: user?.email,
             price: price,
             service: _id,
+            img
         }
         console.log(order)
 

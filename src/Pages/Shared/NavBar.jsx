@@ -14,12 +14,18 @@ const NavBar = () => {
     }
 
     const navLinks = <>
-        <li className="text-lg"><Link>Home</Link></li>
-        <li className="text-lg"><Link>About Us</Link></li>
+        <li className="text-lg"><Link to='/'>Home</Link></li>
+        <li className="text-lg"><Link to='/gxdrb '>About Us</Link></li>
         <li className="text-lg"><Link>Blog</Link></li>
         <li className="text-lg"><Link>Contact</Link></li>
         {
-            user?.email ? <li className="text-lg"><Link onClick={handleLogout}>LogOut</Link></li> : <li className="text-lg"><Link to='/login'>Login</Link></li>
+            user?.email ?
+                <>
+                    <li className="text-lg"><Link to='/bookings'>My list</Link></li>
+                    <li className="text-lg"><Link onClick={handleLogout}>LogOut</Link></li>
+                </>
+                :
+                <li className="text-lg"><Link to='/login'>Login</Link></li>
         }
 
     </>
