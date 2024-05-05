@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContex } from '../../Provider/AuthProvider';
+import axios from 'axios';
 
 const SignIn = () => {
 
     const { signIn } = useContext(AuthContex);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,8 +21,21 @@ const SignIn = () => {
         // Create User 
         signIn(email, password)
             .then(result => {
-                const user = result.user;
-                console.log(user)
+                const loogedUser = result.user;
+                console.log(loogedUser)
+                const user = { email };
+
+                // Jet access token
+                axios.post('http://localhost:5000/jwt', user,
+                    { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.success) {
+                            navigate(location?.state ? location?.state : '/')
+                        }
+                    })
+
+
             })
             .catch(error => {
                 console.log(error)
