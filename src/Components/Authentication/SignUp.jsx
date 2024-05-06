@@ -14,12 +14,12 @@ const SignUp = () => {
         const email = form.email.value;
         const password = form.password.value;
         const conPassword = form.conpassword.value;
-        const user = { email, password, conPassword };
+        // const user = { email, password, conPassword };
         if (password !== conPassword) {
             alert('Password Did not Match')
             return
         }
-        console.log(user)
+        // console.log(user)
 
         // Create User 
         createUser(email, password)

@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContex } from '../../Provider/AuthProvider';
-import axios from 'axios';
 
 const SignIn = () => {
 
@@ -16,33 +15,21 @@ const SignIn = () => {
         const email = form.email.value;
         const password = form.password.value;
         const user = { email, password };
-        console.log(user)
+        // console.log(user)
 
         // Create User 
         signIn(email, password)
             .then(result => {
-                const loogedUser = result.user;
-                console.log(loogedUser)
-                const user = { email };
-
-                // Jet access token
-                axios.post('http://localhost:5000/jwt', user,
-                    { withCredentials: true })
-                    .then(res => {
-                        console.log(res.data)
-                        if (res.data.success) {
-                            navigate(location?.state ? location?.state : '/')
-                        }
-                    })
-
-
+                const user = result.user;
+                // console.log(user)
+                // navigate(location?.state ? location?.state : '/')
             })
             .catch(error => {
                 console.log(error)
             })
-
-
     }
+
+    
     return (
         <>
             <div className="hero min-h-screen bg-base-200 mt-10 mb-5 rounded-xl">

@@ -27,7 +27,7 @@ const CheckOut = () => {
         }
         console.log(order)
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://car-doctor-server-omega-eight.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

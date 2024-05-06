@@ -1,28 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from "../../Provider/AuthProvider";
 import BookingRow from "./BookingRow";
-import axios from "axios";
+import AxiousSecure from "../../Components/Hooks/AxiousSecure";
 
 
 const Booking = () => {
     const { user } = useContext(AuthContex);
     const [bookings, setBookings] = useState();
+    const axiousSecure = AxiousSecure();
+    // const url = `https://car-doctor-server-omega-eight.vercel.app/bookings?email=${user?.email}`;
+    const url = `/bookings?email=${user?.email}`;
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`;
-    
 
     useEffect(() => {
-        axios.get(url, {withCredentials: true})
-    .then(res => {
-        console.log(res.data)
-        setBookings(res.data)
-    })
-    }, [])
+        axiousSecure.get(url)
+            .then(res => {
+                console.log(res.data)
+                setBookings(res.data)
+            })
+    }, [url, axiousSecure])
 
     const handleDlete = id => {
         const procced = confirm('Are You want to Delete');
         if (procced) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`https://car-doctor-server-omega-eight.vercel.app/bookings/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -37,7 +38,7 @@ const Booking = () => {
     }
 
     const handleUpdatedConfirm = id => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://car-doctor-server-omega-eight.vercel.app/bookings/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +47,7 @@ const Booking = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data.modifiedCount > 0) {
                     // updated state
                     const remaining = bookings.filter(booking => booking._id !== id);
